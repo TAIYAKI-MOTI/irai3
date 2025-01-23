@@ -1,0 +1,24 @@
+*{
+    font-family: "Kosugi Maru", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+body{
+    background-image: url('/img/heart-back0109.png') ;
+    background-size: contain;
+}
+div#titlebar{
+    border: 1px black solid;
+    height: 80px;
+    float: left;
+    width: 100%;
+}
+p#title{
+    display: inline;
+    font-size: 30px;
+    line-height: 80px;
+    font-family: "Kaisei Decol", serif;
+    font-weight: 700;
+    font-style: normal;
+    padding-left: 20px;
+}
