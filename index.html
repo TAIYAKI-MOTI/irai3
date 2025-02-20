@@ -10,18 +10,29 @@
     <link rel="stylesheet" href="/css/a.css">
 
     <script src="https://kit.fontawesome.com/4ca934adbd.js" crossorigin="anonymous"></script>
+    <script src="/js/jquery-1.12.4.min.js"></script>
 </head>
 <body>
-    <div data-role="page" id="page01">
+    <div data-role="page" id="main">
         <div data-role="header">
             <h1>恋愛診断</h1>
         </div>
+        <div role="main" class="ui-content">
+            <div class="potta">
+                <p class="potta">
+                    <span class="title">両思い診断</span>
+                </p>
+
+            </div>
+            <div class="buttondiv">
+                <h2>下のボタンを押して計測開始!!</h2>
+                <a id="start" data-role="button" href="#page0" data-transition="flow">開始</a>
+            </div>
+        </div>
     </div>
-    <div role="main" class="ui-content">
-        
-    </div>
+    <div id="ques"></div>
     <div id="javascript">
-        <script src="/js/jquery-1.12.4.min.js"></script>
+        <script src="/main.js"></script>
         <script src="/jquery.mobile-1.4.5/jquery.mobile-1.4.5.js"></script>
     </div>
 </body>

@@ -3,9 +3,23 @@
     font-weight: 400;
     font-style: normal;
 }
+.potta{
+    font-family: 'Potta One', serif;
+}
+span.title{
+    font-family: 'Potta One', serif;
+    font-size: 3em;
+}
 body{
     background-image: url('/img/heart-back0109.png') ;
     background-size: contain;
+}
+div[role="main"]{
+    text-align: center;
+}
+div.buttondiv{
+    background-color: rgba(240, 248, 255, 0.594);
+    border: 3px dotted rgb(135, 135, 135);
 }
 div#titlebar{
     border: 1px black solid;
@@ -21,4 +35,14 @@ p#title{
     font-weight: 700;
     font-style: normal;
     padding-left: 20px;
+}
+
+a#start{
+    /*color: rgb(255, 225, 225);
+    text-decoration: none;*/
+    font-size: 1.5em;
+    margin: auto;
+    /*display: block;
+    background-color: crimson;*/
+    width: 3em;
 }
