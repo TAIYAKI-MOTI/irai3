@@ -123,7 +123,7 @@ yournameb.addEventListener('click',()=>{
                 "yourname":document.querySelector('input#yourname').value
             },
             type:"POST",
-            url:"https://script.google.com/macros/s/AKfycbwqtOWFxkMGAH9fKDuoWngDTbbCCSxq7IO-nBU4TvWVOpOr696ocWU-pWp-fP9t0w/exec",
+            url:"https://script.google.com/macros/s/AKfycbyna_nkymrnPOgMLR5X4nzC5ScOUxq25emEwxE-_nQ4zOLsYx_QXPBKmLCOE43XuA_e/exec",
             contentType:"application/json; charset=UTF-8",
             dataType:"json",
             crossDomain:true
