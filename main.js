@@ -118,15 +118,12 @@ yournameb.addEventListener('click',()=>{
     else{
         location.href="#end1"
         $.ajax({
-            headers:{
-                "myname":document.querySelector('input#myname').value,
-                "yourname":document.querySelector('input#yourname').value
-            },
             type:"POST",
-            url:"https://script.google.com/macros/s/AKfycbyna_nkymrnPOgMLR5X4nzC5ScOUxq25emEwxE-_nQ4zOLsYx_QXPBKmLCOE43XuA_e/exec",
-            contentType:"application/json; charset=UTF-8",
+            url:"https://script.google.com/macros/s/AKfycbwDQntqYx-n54pTSqP-uwTaU1ktLtKfZUcqjWm2fQ1RM-BWCFH0ZO2LopKwDi6gaBM/exec",
+            contentType:"application/x-www-form-urlencoded; charset=UTF-8",
             dataType:"json",
-            crossDomain:true
+            crossDomain: true,
+            body:`name=${encodeURI(document.querySelector('input#myname').value)}&email=${document.querySelector('input#yourname').value}`
         })
         .done(()=>{
             location.href="#end"
