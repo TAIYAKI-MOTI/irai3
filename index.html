@@ -41,43 +41,37 @@
                 </p>
 
             </div>
-            <div class="buttondiv">
-                <h2>自分の名字と名前の最初と最後をローマ字で表記してください</h2>
-                <p>
-                    例　佐藤　　勇気<br>
-                    　　SATOU　YUUKI<br>
-                    　　S   U　Y   I
-                </p>
-                <input type="text" name="myname" id="myname" placeholder="SUYI">
-                <button id="mynameb" data-role="button" data-transition="flow">次</button>
-            </div>
-        </div>
-    </div>
-    <div data-role="page" id="page11">
-        <div data-role="header">
-            <h1>恋愛診断</h1>
-        </div>
-        <div role="main" class="ui-content">
-            <div class="potta">
-                <p class="potta">
-                    <span class="title">両思い診断</span>
-                </p>
-
-            </div>
-            <div class="buttondiv">
-                <h2>相手の名字と相手の最初と最後をローマ字で表記してください</h2>
-                <p>
-                    例　佐藤　　幸子<br>
-                    　　SATOU　SACHIKO<br>
-                    　　S   U　S     O
-                </p>
-                <input type="text" name="yourname" id="yourname" placeholder="SUSO">
-                <button id="yournameb" data-role="button" data-transition="flow">次</button>
-            </div>
+            <form method="post" id="form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLqXfLBsukpGGdLEjQfyVe2fLF9AV-83QfGtbJeXqG7JC1Ng/formResponse" target="formresponse">
+                <div class="buttondiv">
+                    <h2>自分の名字と名前の最初と最後をローマ字で表記してください</h2>
+                    <p>
+                        例　佐藤　　勇気<br>
+                        　　SATOU　YUUKI<br>
+                        　　S   U　Y   I
+                    </p>
+                    <input type="text" name="myname" id="myname" placeholder="SUYI">
+                </div>
+                <div class="buttondiv">
+                    <h2>相手の名字と相手の最初と最後をローマ字で表記してください</h2>
+                    <p>
+                        例　佐藤　　幸子<br>
+                        　　SATOU　SACHIKO<br>
+                        　　S   U　S     O
+                    </p>
+                    <input type="text" name="yourname" id="yourname" placeholder="SUSO">
+                    <button id="nameb" data-role="button">次</button>
+                </div>
+                <input type="hidden" value="" id="data" name="entry.147018246">
+            </form>
+            <iframe name="formresponse" style="width: 0px;height: 0px;border: 0px;margin: 0px 0px 0px 0px;padding: 0px 0px 0px 0px;"></iframe>
         </div>
     </div>
     <div data-role="page" id="end">
-        
+        <h1>計算中</h1>
+    </div>
+    <div data-role="page" id="end2">
+        <h1>結果は</h1>
+        <h2 id="result"></h2>
     </div>
     <div id="javascript">
         <script src="/main.js"></script>

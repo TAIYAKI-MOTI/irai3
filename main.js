@@ -99,36 +99,70 @@ for(let i in question){
 
     
 }
-
-var mynameb = document.querySelector('button#mynameb');
-var yournameb = document.querySelector('button#yournameb');
-
-mynameb.addEventListener('click',()=>{
-    if(!document.querySelector('input#myname').value){
-        alert('値を入力してください')
-    }
-    else{
-        location.href="#page11"
-    }
-});
-yournameb.addEventListener('click',()=>{
-    if(!document.querySelector('input#yourname').value){
+/*
+document.querySelector('nameb').addEventListener('click',()=>{
+    if(!document.querySelector('input#yourname').value || !document.querySelector('input#myname')){
         alert('値を入力してください')
     }
     else{
         location.href="#end1"
-        $.ajax({
-            type:"POST",
-            url:"https://script.google.com/macros/s/AKfycbwDQntqYx-n54pTSqP-uwTaU1ktLtKfZUcqjWm2fQ1RM-BWCFH0ZO2LopKwDi6gaBM/exec",
-            contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-            dataType:"json",
-            crossDomain: true,
-            body:`name=${encodeURI(document.querySelector('input#myname').value)}&email=${document.querySelector('input#yourname').value}`
-        })
-        .done(()=>{
-            location.href="#end"
-        })
+        async function fetchData(){
+            try{
+                const response = await fetch(
+                    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLqXfLBsukpGGdLEjQfyVe2fLF9AV-83QfGtbJeXqG7JC1Ng/formResponse",
+                    {
+                        method:"POST",
+                        redirect:"follow",
+                        mode:"no-cors",
+                        headers:{
+                            "Content-Type":"application/x-www-form-urlencoded",
+                        },
+                        body:`myname=${document.querySelector('input#myname').value}&yourname=${'input#yourname'}`
+                    }
+                );
+                const data = await response.json();
+                console.log(data)
+                if( data == "success" ){
+                    location.href="#end"
+                }
+            }
+            catch (error){
+                console.error(error)
+            }
+        }
+        fetchData()
         
     }
 });
+*/
 
+function sleep(msec){
+    return new Promise(function(resolve){
+        setTimeout(function(){resolve()}, msec)
+    })
+}
+
+function getRandom( min, max ){
+    return Math.floor( Math.random() * (max + 1 - min) ) + min;
+}
+
+const form = document.querySelector('form#form');
+document.querySelector('button#nameb').addEventListener('click', async evt => {
+    if(!document.querySelector('input#yourname').value || !document.querySelector('input#myname').value){
+        alert('値を入力してください')
+    }
+    else{
+        const data = document.querySelector('input#data');
+        const str = `myname=${document.querySelector('input#myname').value},yourname=${document.querySelector('input#yourname').value}`;
+        data.value = btoa(encodeURIComponent(str))
+        form.submit();
+        from[0].reset();
+        location.href='#end';
+        await sleep(50000);
+        location.href='#end2';
+        let result = getRandom(90,100) + getRandom(0,9) / 10;
+        await sleep(2000);
+        document.querySelector('h2#result').innerHTML=result+"%<br>でした！"
+        return false
+    }
+})
