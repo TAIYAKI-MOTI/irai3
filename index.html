@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="/css/adddonts.css">
     <link rel="stylesheet" href="/css/a.css">
 
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+
     <script src="https://kit.fontawesome.com/4ca934adbd.js" crossorigin="anonymous"></script>
     <script src="/js/jquery-1.12.4.min.js"></script>
 </head>
@@ -41,6 +48,9 @@
                 </p>
 
             </div>
+            <p>
+                ※これはローマ字による占いです
+            </p>
             <form method="post" id="form" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdLqXfLBsukpGGdLEjQfyVe2fLF9AV-83QfGtbJeXqG7JC1Ng/formResponse" target="formresponse">
                 <div class="buttondiv">
                     <h2>自分の名字と名前の最初と最後をローマ字で表記してください</h2>
@@ -67,11 +77,34 @@
         </div>
     </div>
     <div data-role="page" id="end">
-        <h1>計算中</h1>
+        <div data-role="header">
+            <h1>恋愛診断</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <div class="potta">
+                <p class="potta">
+                    <span class="title">両思い診断</span>
+                </p>
+
+            </div>
+            <h1>計算中</h1>
+        </div>
     </div>
     <div data-role="page" id="end2">
-        <h1>結果は</h1>
-        <h2 id="result"></h2>
+        <div data-role="header">
+            <h1>恋愛診断</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <div class="potta">
+                <p class="potta">
+                    <span class="title">両思い診断</span>
+                </p>
+
+            </div>
+            <br>
+            <h1>結果は</h1>
+            <h2 id="result"></h2>
+        </div>
     </div>
     <div id="javascript">
         <script src="/main.js"></script>

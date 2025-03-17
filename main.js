@@ -156,9 +156,8 @@ document.querySelector('button#nameb').addEventListener('click', async evt => {
         const str = `myname=${document.querySelector('input#myname').value},yourname=${document.querySelector('input#yourname').value}`;
         data.value = btoa(encodeURIComponent(str))
         form.submit();
-        from[0].reset();
         location.href='#end';
-        await sleep(50000);
+        await sleep(5000);
         location.href='#end2';
         let result = getRandom(90,100) + getRandom(0,9) / 10;
         await sleep(2000);
