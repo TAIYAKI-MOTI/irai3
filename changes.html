@@ -37,10 +37,15 @@
             const b = document.createElement('p')
             document.body.appendChild(b);
             
-            a.addEventListener('change', async ()=>{
+            const e = async ()=>{
                 const decoded = decodeURIComponent(await base64Decode(a.value,"utf8"));
                 b.innerText=decoded;
-            });
+            };
+            a.addEventListener('change', e);
+            const f = document.createElement('button');
+            f.innerText="変換";
+            document.body.appendChild(f);
+            f.addEventListener('click', e);
         </script>
     </body>
 </html>
