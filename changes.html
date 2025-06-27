@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <script>
+            function base64Encode(...parts) {
+                return new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                    const offset = reader.result.indexOf(",") + 1;
+                    resolve(reader.result.slice(offset));
+                    };
+                    reader.readAsDataURL(new Blob(parts));
+                });
+            }
+
+            function base64Decode(text, charset) {
+                return fetch(`data:text/plain;charset=${charset};base64,` + text).then(response => response.text());
+            }
+
+            function base64DecodeAsBlob(text, type = "text/plain;charset=UTF-8") {
+                return fetch(`data:${type};base64,` + text).then(response => response.blob());
+            } 
+
+            // data:text/plain;charset=utf8;base64,bXluYW1lJTNEVE9UQSUyQ3lvdXJuYW1lJTNES09STw==
+            const a = document.createElement('textarea');
+            a.name="input"
+            document.body.appendChild(a);
+            const d = document.createElement('label');
+            d.innerHTML="入力";
+            d.htmlFor="input";
+            document.body.appendChild(d);
+            const c = document.createElement('br');
+            document.body.append(c);
+            const b = document.createElement('p')
+            document.body.appendChild(b);
+            
+            a.addEventListener('change', async ()=>{
+                const decoded = decodeURIComponent(await base64Decode(a.value,"utf8"));
+                b.innerText=decoded;
+            });
+        </script>
+    </body>
+</html>
