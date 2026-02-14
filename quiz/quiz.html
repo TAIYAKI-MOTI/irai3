@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>雑学マスター</title>
+<style>
+body{
+  text-align:center;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#0f172a,#1e3a8a);
+  color:white;
+  padding:30px;
+}
+.box{
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:15px;
+  max-width:400px;
+  margin:auto;
+}
+button{
+  padding:10px 20px;
+  margin:5px;
+  background:gold;
+  border:none;
+  font-weight:bold;
+  border-radius:8px;
+  cursor:pointer;
+}
+button:hover{
+  background:orange;
+}
+input{
+  padding:10px;
+  width:80%;
+  border-radius:8px;
+  border:none;
+}
+</style>
+</head>
+<body>
+
+<h1>🌍 雑学マスター</h1>
+
+<div class="box">
+
+<button id="btnSpace">宇宙</button>
+<button id="btnAnimal">動物</button>
+<button id="btnGeography">地理</button>
+<button id="btnHistory">歴史</button>
+<button id="btnGeneral">雑学</button>
+
+<br><br>
+
+<div id="question">カテゴリを選んでね</div>
+
+<input type="text" id="answer" placeholder="答え">
+<br><br>
+
+<button id="btnCheck">回答</button>
+
+<div id="result"></div>
+<div id="score">スコア:0</div>
+
+</div>
+
+<script>
+let score = 0;
+let currentQuiz = [];
+let currentIndex = 0;
+
+// 初期スコア読み込み
+if(localStorage.getItem("score")){
+  score = parseInt(localStorage.getItem("score"));
+  document.getElementById("score").innerText="スコア:"+score;
+}
+
+// 問題データ
+const quiz = {
+  space:[
+    {q:"地球の衛星は？",a:"月"},
+    {q:"太陽系で一番大きい惑星は？",a:"木星"},
+    {q:"火星の色は？",a:"赤"},
+    {q:"水星は太陽から何番目？",a:"1"},
+    {q:"土星の特徴的なものは？",a:"リング"},
+    {q:"銀河の名前は？",a:"天の川銀河"},
+    {q:"月は自分で光る？",a:"光らない"},
+    {q:"光の速さは約何km/s？",a:"30万"},
+    {q:"宇宙で音は伝わる？",a:"伝わらない"},
+    {q:"地球は太陽から何番目？",a:"3"}
+  ],
+  animal:[
+    {q:"タコの足は何本？",a:"8"},
+    {q:"魚は何で呼吸する？",a:"エラ"},
+    {q:"パンダの主食は？",a:"竹"},
+    {q:"チーターは何が速い？",a:"走るのが速い"},
+    {q:"クジラは魚か哺乳類か？",a:"哺乳類"},
+    {q:"カエルは何類？",a:"両生類"},
+    {q:"犬の嗅覚は人間の何倍以上？",a:"100万倍"},
+    {q:"キリンの首の骨の数は？",a:"7"},
+    {q:"コウモリは鳥か？",a:"哺乳類"},
+    {q:"イルカは魚か？",a:"哺乳類"}
+  ],
+  geography:[
+    {q:"日本の首都は？",a:"東京"},
+    {q:"世界で一番面積が大きい国は？",a:"ロシア"},
+    {q:"日本で一番高い山は？",a:"富士山"},
+    {q:"地球で一番寒い大陸は？",a:"南極"},
+    {q:"オーストラリアの首都は？",a:"キャンベラ"},
+    {q:"アメリカの首都は？",a:"ワシントン"},
+    {q:"日本で一番長い川は？",a:"信濃川"},
+    {q:"日本で一番大きい湖は？",a:"琵琶湖"},
+    {q:"地球の表面の約何割が海？",a:"7割"},
+    {q:"エジプトにある有名な建造物は？",a:"ピラミッド"}
+  ],
+  history:[
+    {q:"日本の初代天皇は？",a:"神武天皇"},
+    {q:"アメリカ独立宣言は何年？",a:"1776"},
+    {q:"織田信長の家紋は？",a:"織田木瓜"},
+    {q:"明治維新は何年？",a:"1868"},
+    {q:"ナポレオンの出身国は？",a:"フランス"},
+    {q:"ローマ帝国の首都は？",a:"ローマ"},
+    {q:"日本の幕府最後の将軍は？",a:"徳川慶喜"},
+    {q:"フランス革命は何年？",a:"1789"},
+    {q:"鎌倉幕府を開いたのは？",a:"源頼朝"},
+    {q:"世界初の紙幣はどこの国？",a:"中国"}
+  ],
+  general:[
+    {q:"1日は何時間？",a:"24"},
+    {q:"人間の骨の数は？",a:"206"},
+    {q:"蜂は何を作る？",a:"蜂蜜"},
+    {q:"太陽は何色に見える？",a:"白"},
+    {q:"光は1秒で地球を約何周する？",a:"7周半"},
+    {q:"塩は何味？",a:"しょっぱい"},
+    {q:"水の化学式は？",a:"H2O"},
+    {q:"日本の国花は？",a:"桜"},
+    {q:"1円玉の材料は？",a:"アルミニウム"},
+    {q:"東京タワーの色は？",a:"赤と白"}
+  ]
+};
+
+// ボタン設定
+document.getElementById("btnSpace").addEventListener("click",()=>startQuiz("space"));
+document.getElementById("btnAnimal").addEventListener("click",()=>startQuiz("animal"));
+document.getElementById("btnGeography").addEventListener("click",()=>startQuiz("geography"));
+document.getElementById("btnHistory").addEventListener("click",()=>startQuiz("history"));
+document.getElementById("btnGeneral").addEventListener("click",()=>startQuiz("general"));
+
+document.getElementById("btnCheck").addEventListener("click",checkAnswer);
+
+// クイズ開始
+function startQuiz(category){
+  currentQuiz = quiz[category];
+  currentIndex = 0;
+  document.getElementById("result").innerText="";
+  document.getElementById("answer").value="";
+  loadQuestion();
+}
+
+// 問題表示
+function loadQuestion(){
+  if(currentQuiz.length === 0){
+    document.getElementById("question").innerText="カテゴリを選んでね";
+    return;
+  }
+  if(currentIndex >= currentQuiz.length){
+    document.getElementById("question").innerText="終了！";
+    return;
+  }
+  document.getElementById("question").innerText = currentQuiz[currentIndex].q;
+}
+
+// 回答チェック
+function checkAnswer(){
+  if(currentQuiz.length === 0){
+    alert("先にカテゴリを選んでね！");
+    return;
+  }
+  const userAnswer = document.getElementById("answer").value.trim();
+  if(userAnswer == currentQuiz[currentIndex].a){
+    score++;
+    localStorage.setItem("score",score);
+    document.getElementById("result").innerText="正解！";
+    document.getElementById("score").innerText="スコア:"+score;
+  }else{
+    document.getElementById("result").innerText="不正解… 正解は「"+currentQuiz[currentIndex].a+"」";
+  }
+  currentIndex++;
+  document.getElementById("answer").value="";
+  loadQuestion();
+}
+</script>
+
+</body>
+</html>
