@@ -787,23 +787,24 @@
             };
             let currentSubjects = gradeSubjects[currentGrade];
             subjectSelect.innerHTML = "";
-            for (const sub in currentSubjects) {
+            currentSubjects.forEach((sub) => {
                 let opt = document.createElement("option");
                 opt.value = sub;
                 opt.textContent = sub;
                 subjectSelect.appendChild(opt);
-            }
+            });
             let currentSubject = currentSubjects[0];
             
             gradeSelect.addEventListener("change", () => {
                 currentGrade = gradeSelect.value;
                 currentSubjects = gradeSubjects[currentGrade];
                 subjectSelect.innerHTML = "";
-                for (const subject in currentSubjects) {
+                currentSubjects.forEach((sub) => {
                     let opt = document.createElement("option");
-                    opt.value = subject;
+                    opt.value = sub;
+                    opt.textContent = sub;
                     subjectSelect.appendChild(opt);
-                }
+                });
                 currentSubject = currentSubjects[0];
                 renderQuiz();
             });
@@ -863,6 +864,7 @@
 </body>
 
 </html>
+
 
 
 
