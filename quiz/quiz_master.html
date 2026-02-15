@@ -786,6 +786,12 @@
                 ],
             };
             let currentSubjects = gradeSubjects[currentGrade];
+            subjectSelect.innerHTML = "";
+            for (const sub in currentSubjects) {
+                let opt = document.createElement("option");
+                opt.value = sub;
+                subjectSelect.appendChild(opt);
+            }
             let currentSubject = currentSubjects[0];
             
             gradeSelect.addEventListener("change", () => {
@@ -856,4 +862,5 @@
 </body>
 
 </html>
+
 
