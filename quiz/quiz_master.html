@@ -821,12 +821,12 @@
                 const h2 = document.createElement("h2");
                 h2.textContent = currentSubject;
                 quizContainer.appendChild(h2);
-                quizData[currentGrade][currentSubject].forEach((item, index) => {
+                subjects[currentSubject].forEach((item, index) => {
                     const h3 = document.createElement("h3");
                     h3.textContent = item.q;
                     const input = document.createElement("input");
                     input.type = "text";
-                    input.id = `${subject}-${index}`;
+                    input.id = `${currentSubject}-${index}`;
                     quizContainer.appendChild(h3);
                     quizContainer.appendChild(input);
                 });
@@ -837,7 +837,7 @@
                 let total = 0;
                 quizData[currentGrade][currentSubject].forEach((item, index) => {
                     total++;
-                    const input = document.getElementById(`${subject}-${index}`);
+                    const input = document.getElementById(`${currentSubject}-${index}`);
                     const userAnswer = input.value.trim();
                     if (userAnswer === item.a) {
                         input.classList.add("correct");
@@ -860,11 +860,5 @@
             // 初回表示
             renderQuiz();
         </script>
-
-</body>
-
+    </body>
 </html>
-
-
-
-
