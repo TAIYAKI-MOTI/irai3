@@ -790,6 +790,7 @@
             for (const sub in currentSubjects) {
                 let opt = document.createElement("option");
                 opt.value = sub;
+                opt.textContent = sub;
                 subjectSelect.appendChild(opt);
             }
             let currentSubject = currentSubjects[0];
@@ -862,5 +863,6 @@
 </body>
 
 </html>
+
 
 
