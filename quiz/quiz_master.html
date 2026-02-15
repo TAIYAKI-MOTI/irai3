@@ -26,6 +26,7 @@
                 <option value="中2">中2</option>
                 <option value="中3">中3</option>
             </select>
+            <select id="subject-select"></select>
         </label>
         
         <div id="quiz-container"></div>
@@ -754,12 +755,54 @@
             let currentGrade = "中1";
             
             const gradeSelect = document.getElementById("grade-select");
+            const subjectSelect = document.getElementById("subject-select");
             const quizContainer = document.getElementById("quiz-container");
             const checkBtn = document.getElementById("check-btn");
             const resultDiv = document.getElementById("result");
+
+            const gradeSubjects = {
+                "中1":[
+                    "国語",
+                    "数学",
+                    "英語",
+                    "理科",
+                    "歴史",
+                    "地理"
+                ],
+                "中2":[
+                    "国語",
+                    "数学",
+                    "英語",
+                    "理科",
+                    "社会"
+                ],
+                "中3":[
+                    "国語",
+                    "数学",
+                    "英語",
+                    "理科",
+                    "歴史",
+                    "地理"
+                ],
+            };
+            let currentSubjects = gradeSubjects[currentGrade];
+            let currentSubject = currentSubjects[0];
             
             gradeSelect.addEventListener("change", () => {
                 currentGrade = gradeSelect.value;
+                currentSubjects = gradeSubjects[currentGrade];
+                subjectSelect.innerHTML = "";
+                for (const subject in currentSubjects) {
+                    let opt = document.createElement("option");
+                    opt.value = subject;
+                    subjectSelect.appendChild(opt);
+                }
+                currentSubject = currentSubjects[0];
+                renderQuiz();
+            });
+
+            subjectSelect.addEventListener("change", () => {
+                currentSubject = subjectSelect.value;
                 renderQuiz();
             });
             
@@ -767,47 +810,42 @@
                 quizContainer.innerHTML = "";
                 resultDiv.innerHTML = "";
                 const subjects = quizData[currentGrade];
-                for (const subject in subjects) {
-                    const h2 = document.createElement("h2");
-                    h2.textContent = subject;
-                    quizContainer.appendChild(h2);
-                    subjects[subject].forEach((item, index) => {
-                        const h3 = document.createElement("h3");
-                        h3.textContent = item.q;
-                        const input = document.createElement("input");
-                        input.type = "text";
-                        input.id = `${subject}-${index}`;
-                        quizContainer.appendChild(h3);
-                        quizContainer.appendChild(input);
-                    });
-                }
+                const h2 = document.createElement("h2");
+                h2.textContent = currentSubject;
+                quizContainer.appendChild(h2);
+                quizData[currentGrade][currentSubject].forEach((item, index) => {
+                    const h3 = document.createElement("h3");
+                    h3.textContent = item.q;
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.id = `${subject}-${index}`;
+                    quizContainer.appendChild(h3);
+                    quizContainer.appendChild(input);
+                });
             }
             
             checkBtn.addEventListener("click", () => {
                 let score = 0;
                 let total = 0;
-                const subjects = quizData[currentGrade];
-                for (const subject in subjects) {
-                    subjects[subject].forEach((item, index) => {
-                        total++;
-                        const input = document.getElementById(`${subject}-${index}`);
-                        const userAnswer = input.value.trim();
-                        if (userAnswer === item.a) {
-                            input.classList.add("correct");
-                            input.classList.remove("wrong");
-                            score++;
-                        } else {
-                            input.classList.add("wrong");
-                            input.classList.remove("correct");
-                            const span = document.createElement("span");
-                            span.className = "answer";
-                            span.textContent = `(答: ${item.a})`;
-                            if (!input.nextElementSibling || !input.nextElementSibling.classList.contains("answer")) {
-                                input.parentNode.insertBefore(span, input.nextSibling);
-                            }
+                quizData[currentGrade][currentSubject].forEach((item, index) => {
+                    total++;
+                    const input = document.getElementById(`${subject}-${index}`);
+                    const userAnswer = input.value.trim();
+                    if (userAnswer === item.a) {
+                        input.classList.add("correct");
+                        input.classList.remove("wrong");
+                        score++;
+                    } else {
+                        input.classList.add("wrong");
+                        input.classList.remove("correct");
+                        const span = document.createElement("span");
+                        span.className = "answer";
+                        span.textContent = `(答: ${item.a})`;
+                        if (!input.nextElementSibling || !input.nextElementSibling.classList.contains("answer")) {
+                            input.parentNode.insertBefore(span, input.nextSibling);
                         }
-                    });
-                }
+                    }
+                });
                 resultDiv.textContent = `正解数: ${score} / ${total}`;
             });
             
@@ -818,3 +856,4 @@
 </body>
 
 </html>
+
